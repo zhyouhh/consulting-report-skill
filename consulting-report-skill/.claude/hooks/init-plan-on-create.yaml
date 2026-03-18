@@ -1,0 +1,6 @@
+name: init-plan-on-create
+description: 创建 plan/ 目录后自动初始化项目管理文件
+trigger: on_directory_create
+pattern: "plan/"
+action: run_script
+script: scripts/init_plan.sh

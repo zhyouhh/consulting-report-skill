@@ -1,0 +1,6 @@
+name: confirm-overwrite
+description: 覆盖现有报告前弹出确认提示
+trigger: on_demand
+pattern: null
+action: confirm
+message: "即将覆盖现有报告，是否继续？"

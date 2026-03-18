@@ -1,0 +1,6 @@
+name: post-report-quality-check
+description: 报告完成后自动运行质量检查
+trigger: on_file_write
+pattern: "*.md"
+action: run_script
+script: scripts/quality_check.sh
