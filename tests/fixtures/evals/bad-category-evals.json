@@ -1,0 +1,12 @@
+{
+  "evals": [
+    {
+      "id": "bad-category-001",
+      "category": "imaginary-category",
+      "prompt": "帮我写报告",
+      "expected_modules": ["writing-core"],
+      "expected_behaviors": ["create_plan"],
+      "disallowed_signals": []
+    }
+  ]
+}

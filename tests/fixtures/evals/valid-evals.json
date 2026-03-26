@@ -1,0 +1,20 @@
+{
+  "evals": [
+    {
+      "id": "general-report-001",
+      "category": "general-report",
+      "prompt": "帮我写一份行业研究报告",
+      "expected_modules": ["writing-core"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["本章将"]
+    },
+    {
+      "id": "review-001",
+      "category": "anti-ai-regression",
+      "prompt": "帮我检查报告里的 AI 味和后台表述",
+      "expected_modules": ["quality-review"],
+      "expected_behaviors": ["route_to_quality_review", "avoid_meta_narration"],
+      "disallowed_signals": ["技术规范书"]
+    }
+  ]
+}

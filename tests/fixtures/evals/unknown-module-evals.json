@@ -1,0 +1,12 @@
+{
+  "evals": [
+    {
+      "id": "unknown-module-001",
+      "category": "general-report",
+      "prompt": "帮我写报告",
+      "expected_modules": ["nonexistent-module"],
+      "expected_behaviors": ["create_plan"],
+      "disallowed_signals": []
+    }
+  ]
+}

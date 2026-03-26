@@ -1,0 +1,20 @@
+{
+  "evals": [
+    {
+      "id": "duplicate-001",
+      "category": "general-report",
+      "prompt": "帮我写报告",
+      "expected_modules": ["writing-core"],
+      "expected_behaviors": ["create_plan"],
+      "disallowed_signals": []
+    },
+    {
+      "id": "duplicate-001",
+      "category": "anti-ai-regression",
+      "prompt": "帮我去 AI 味",
+      "expected_modules": ["quality-review"],
+      "expected_behaviors": ["route_to_quality_review"],
+      "disallowed_signals": []
+    }
+  ]
+}

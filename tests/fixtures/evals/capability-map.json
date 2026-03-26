@@ -1,0 +1,22 @@
+{
+  "task_types": ["general-report", "anti-ai-regression"],
+  "behavior_tags": ["create_plan", "cite_data_sources", "route_to_quality_review", "avoid_meta_narration"],
+  "capabilities": [
+    {
+      "module": "writing-core",
+      "summary": "通用咨询写作规范",
+      "task_types": ["general-report"],
+      "trigger_phrases": ["写报告", "咨询报告"],
+      "outputs": ["markdown"],
+      "aliases": ["writing"]
+    },
+    {
+      "module": "quality-review",
+      "summary": "质量审查与交付前复核",
+      "task_types": ["anti-ai-regression"],
+      "trigger_phrases": ["质量审查", "review"],
+      "outputs": ["review-notes"],
+      "aliases": ["quality"]
+    }
+  ]
+}

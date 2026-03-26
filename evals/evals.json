@@ -1,0 +1,196 @@
+{
+  "evals": [
+    {
+      "id": "general-report-001",
+      "category": "general-report",
+      "prompt": "帮我写一份新能源汽车行业战略研究报告，先出大纲和核心结论。",
+      "expected_modules": ["consulting-lifecycle", "writing-core", "strategy-consulting"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["本章将", "技术规范书"]
+    },
+    {
+      "id": "general-report-002",
+      "category": "general-report",
+      "prompt": "分析中国云计算市场趋势，并形成适合管理层阅读的咨询报告。",
+      "expected_modules": ["consulting-lifecycle", "writing-core", "market-research"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["下文将", "内部材料"]
+    },
+    {
+      "id": "general-report-003",
+      "category": "general-report",
+      "prompt": "继续昨天的战略报告，把建议部分补成三阶段行动方案。",
+      "expected_modules": ["consulting-lifecycle", "writing-core", "recommendation-framework"],
+      "expected_behaviors": ["read_existing_plan", "cite_data_sources"],
+      "disallowed_signals": ["AI reference", "本章将"]
+    },
+    {
+      "id": "general-report-004",
+      "category": "general-report",
+      "prompt": "基于现有战略咨询报告，提炼一版面向董事会的执行摘要，控制在两页以内。",
+      "expected_modules": ["consulting-lifecycle", "executive-summary", "quality-review"],
+      "expected_behaviors": ["read_existing_plan", "cite_data_sources", "avoid_meta_narration"],
+      "disallowed_signals": ["本章将", "下文将"]
+    },
+    {
+      "id": "specialized-research-001",
+      "category": "specialized-research",
+      "prompt": "评估某能源企业的数据管理现状，识别核心问题并提出改进方向。",
+      "expected_modules": ["consulting-lifecycle", "specialized-research", "data-analysis"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["技术规范书", "内部材料"]
+    },
+    {
+      "id": "specialized-research-002",
+      "category": "specialized-research",
+      "prompt": "做一份面向管理层的专题研究，分析某制造企业的流程优化机会。",
+      "expected_modules": ["consulting-lifecycle", "specialized-research", "recommendation-framework"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["本章将", "AI reference"]
+    },
+    {
+      "id": "specialized-research-003",
+      "category": "specialized-research",
+      "prompt": "对一家科技公司做业务尽调，重点看市场地位和核心竞争力。",
+      "expected_modules": ["consulting-lifecycle", "due-diligence", "market-research"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["下文将", "内部材料"]
+    },
+    {
+      "id": "management-document-001",
+      "category": "management-document",
+      "prompt": "编写一份集团数据管理制度，覆盖分级分类、权限、质量和安全。",
+      "expected_modules": ["consulting-lifecycle", "management-system", "writing-core"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["本报告不展开", "技术规范书"]
+    },
+    {
+      "id": "management-document-002",
+      "category": "management-document",
+      "prompt": "帮我起草一份信息安全管理办法，要求结构清晰、语言像正式制度。",
+      "expected_modules": ["consulting-lifecycle", "management-system", "quality-review"],
+      "expected_behaviors": ["create_plan", "run_quality_gate"],
+      "disallowed_signals": ["AI reference", "内部材料"]
+    },
+    {
+      "id": "management-document-003",
+      "category": "management-document",
+      "prompt": "继续已有制度文稿，把职责分工和执行机制部分补全。",
+      "expected_modules": ["consulting-lifecycle", "management-system", "quality-review"],
+      "expected_behaviors": ["read_existing_plan", "run_quality_gate"],
+      "disallowed_signals": ["本章将", "下文将"]
+    },
+    {
+      "id": "implementation-plan-001",
+      "category": "implementation-plan",
+      "prompt": "为零售企业数字化转型写一份实施方案，包含路线图和里程碑。",
+      "expected_modules": ["consulting-lifecycle", "implementation-plan", "recommendation-framework"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["内部材料", "本章将"]
+    },
+    {
+      "id": "implementation-plan-002",
+      "category": "implementation-plan",
+      "prompt": "把 ERP 上线方案写细一些，补充资源安排和关键风险应对。",
+      "expected_modules": ["consulting-lifecycle", "implementation-plan", "quality-review"],
+      "expected_behaviors": ["create_plan", "run_quality_gate"],
+      "disallowed_signals": ["AI reference", "下文将"]
+    },
+    {
+      "id": "implementation-plan-003",
+      "category": "implementation-plan",
+      "prompt": "继续昨天的实施方案，把分阶段任务和标志成果补完整。",
+      "expected_modules": ["consulting-lifecycle", "implementation-plan", "recommendation-framework"],
+      "expected_behaviors": ["read_existing_plan", "cite_data_sources"],
+      "disallowed_signals": ["技术规范书", "本报告不展开"]
+    },
+    {
+      "id": "quick-delivery-001",
+      "category": "quick-delivery",
+      "prompt": "合同要求交一份 10 页左右的行业背景材料，时间很紧，用公开信息快速整理即可。",
+      "expected_modules": ["consulting-lifecycle", "templates-collection", "writing-core"],
+      "expected_behaviors": ["create_plan", "use_quick_mode", "run_quality_gate"],
+      "disallowed_signals": ["TODO", "TBD"]
+    },
+    {
+      "id": "quick-delivery-002",
+      "category": "quick-delivery",
+      "prompt": "需要一份形式交付的政策梳理，篇幅达标优先，先快速成稿。",
+      "expected_modules": ["consulting-lifecycle", "templates-collection", "quality-review"],
+      "expected_behaviors": ["create_plan", "use_quick_mode", "run_quality_gate"],
+      "disallowed_signals": ["XXX", "技术规范书"]
+    },
+    {
+      "id": "quick-delivery-003",
+      "category": "quick-delivery",
+      "prompt": "给我按标准模板补一份竞争分析背景稿，先能交上去，后面再细修。",
+      "expected_modules": ["consulting-lifecycle", "templates-collection", "framework-diagrams"],
+      "expected_behaviors": ["create_plan", "use_quick_mode", "cite_data_sources"],
+      "disallowed_signals": ["内部材料", "AI reference"]
+    },
+    {
+      "id": "reviewable-draft-001",
+      "category": "reviewable-draft",
+      "prompt": "正文已经差不多了，帮我导出一版 Word 可审草稿给领导看。",
+      "expected_modules": ["quality-review", "final-delivery", "writing-core"],
+      "expected_behaviors": ["run_quality_gate", "offer_reviewable_draft"],
+      "disallowed_signals": ["最终终排", "本章将"]
+    },
+    {
+      "id": "reviewable-draft-002",
+      "category": "reviewable-draft",
+      "prompt": "我要一版可以流转批注的 docx，但先别说成最终提交版。",
+      "expected_modules": ["quality-review", "final-delivery", "common-gotchas"],
+      "expected_behaviors": ["offer_reviewable_draft", "avoid_meta_narration"],
+      "disallowed_signals": ["最终终排", "技术规范书"]
+    },
+    {
+      "id": "reviewable-draft-003",
+      "category": "reviewable-draft",
+      "prompt": "请检查一遍后导出 Word 预审稿，重点别留下后台词和占位符。",
+      "expected_modules": ["quality-review", "final-delivery", "common-gotchas"],
+      "expected_behaviors": ["run_quality_gate", "offer_reviewable_draft", "avoid_backstage_terms"],
+      "disallowed_signals": ["XXX", "内部材料"]
+    },
+    {
+      "id": "anti-ai-regression-001",
+      "category": "anti-ai-regression",
+      "prompt": "检查报告里有没有‘本章将’、‘下文将’这种写法。",
+      "expected_modules": ["common-gotchas", "quality-review", "writing-core"],
+      "expected_behaviors": ["route_to_quality_review", "avoid_meta_narration"],
+      "disallowed_signals": ["本章将", "下文将"]
+    },
+    {
+      "id": "anti-ai-regression-002",
+      "category": "anti-ai-regression",
+      "prompt": "帮我看正文里有没有把内部推进过程写进去，比如内部材料、技术规范书这些词。",
+      "expected_modules": ["common-gotchas", "quality-review", "writing-core"],
+      "expected_behaviors": ["route_to_quality_review", "avoid_backstage_terms"],
+      "disallowed_signals": ["技术规范书", "内部材料"]
+    },
+    {
+      "id": "anti-ai-regression-003",
+      "category": "anti-ai-regression",
+      "prompt": "交付前再扫一遍占位符和后台痕迹，避免把 TODO 和 AI reference 带进去。",
+      "expected_modules": ["common-gotchas", "quality-review", "writing-core"],
+      "expected_behaviors": ["route_to_quality_review", "avoid_backstage_terms"],
+      "disallowed_signals": ["TODO", "AI reference"]
+    },
+    {
+      "id": "anti-ai-regression-004",
+      "category": "anti-ai-regression",
+      "prompt": "帮我把自我解释句清掉，正文只保留内容本身。",
+      "expected_modules": ["common-gotchas", "quality-review", "writing-core"],
+      "expected_behaviors": ["route_to_quality_review", "avoid_meta_narration"],
+      "disallowed_signals": ["本报告不展开", "本章将"]
+    },
+    {
+      "id": "anti-ai-regression-005",
+      "category": "anti-ai-regression",
+      "prompt": "质量审查看看还有没有后台词、元叙事和会误导成终排版承诺的句子。",
+      "expected_modules": ["common-gotchas", "quality-review", "final-delivery"],
+      "expected_behaviors": ["route_to_quality_review", "avoid_meta_narration", "avoid_backstage_terms"],
+      "disallowed_signals": ["最终终排", "技术规范书"]
+    }
+  ]
+}
