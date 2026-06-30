@@ -2,7 +2,7 @@
 
 > 别再让 AI 帮你「凑一篇」。这个 Skill 把咨询报告写作做成可追踪、可恢复、可复用、可评测的工程化流程——接管项目上下文、按场景路由模块、交付前自动清 AI 味，还能写招投标技术标。
 
-![Agent Skill](https://img.shields.io/badge/Agent-Skill-6E56CF) ![Claude Code](https://img.shields.io/badge/Claude%20Code-✓-444) ![Codex · Cursor · Gemini](https://img.shields.io/badge/Codex·Cursor·Gemini-runtime--neutral-444) ![Tests](https://img.shields.io/badge/tests-35%20passing-2DA44E) ![License](https://img.shields.io/badge/License-MIT-blue)
+![Agent Skill](https://img.shields.io/badge/Agent-Skill-6E56CF) ![Claude Code](https://img.shields.io/badge/Claude%20Code-✓-444) ![Codex · Cursor · Gemini](https://img.shields.io/badge/Codex·Cursor·Gemini-runtime--neutral-444) ![Tests](https://img.shields.io/badge/tests-passing-2DA44E) ![License](https://img.shields.io/badge/License-MIT-blue)
 
 SKILL.md 内容 runtime 中性，可在 Claude Code、Codex、Cursor、Gemini CLI 等读取 `SKILL.md` 的 Agent 里使用。
 
@@ -35,6 +35,14 @@ SKILL.md 内容 runtime 中性，可在 Claude Code、Codex、Cursor、Gemini CL
 | `clean-report.md`（清洗后） | 0 | 0 | 0 |
 
 高风险命中占位符 `XXX`、后台词「内部材料」；中风险命中机械过渡词、空洞强调句；低风险命中图表跳号（图1→图3）。内容问题分级告警，不阻断流程。
+
+**确定性去 AI 味基准**（`python scripts/benchmark_anti_ai.py`，3 组配对语料真实跑分，可复现）：
+
+| | baseline（AI 味稿） | cleaned（去 AI 味后） | Δ |
+|---|---:|---:|---:|
+| 平均洁净度 / 100 | 28.7 | 99.0 | **+70.3** |
+
+评分是**确定性** AI 痕迹洁净度（脚本可机检项，痕迹越少分越高），不是 LLM 主观质量分、不声称等同人评——用途是量化展示 + 回归护栏：cleaned 语料分数跌破阈值，测试会拦住。
 
 ## 安装
 
@@ -114,7 +122,7 @@ bash scripts/export_draft.sh report.md output
 | 去 AI 味 | 删几个词 | ✗ | ✅ 语域感知 AI 痕迹清单 |
 | 招投标技术标 | ✗ | ✗ | ✅ 评分点对标、点对点应答 |
 | 交付前质检 | ✗ | 部分 | ✅ 分级告警脚本 |
-| 自身可评测 / 契约护栏 | — | 不一 | ✅ 35 个契约测试 |
+| 自身可评测 / 契约护栏 | — | 不一 | ✅ 契约 + 基准护栏测试通过 |
 
 定位说明：方法论厚度上不和 management-consulting 这类「框架库」比框架数量，去 AI 味深度上参考并致敬 Humanizer-zh；本 Skill 的差异化是**把咨询项目当工程来管**——状态可恢复、改动有契约护栏、覆盖中文招投标技术标。
 
@@ -184,6 +192,13 @@ python -m unittest discover -s tests -v
 
 ```bash
 python scripts/run_evals.py
+```
+
+### 运行去 AI 味基准
+
+```bash
+python scripts/benchmark_anti_ai.py            # 配对语料 baseline vs cleaned 跑分
+python scripts/benchmark_anti_ai.py report.md  # 给单个稿子打洁净度分
 ```
 
 更细的自检说明见 `docs/self-check.md`。

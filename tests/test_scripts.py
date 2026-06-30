@@ -1,3 +1,4 @@
+import re
 import subprocess
 import shutil
 import tempfile
@@ -367,6 +368,57 @@ class ShellScriptParityTests(unittest.TestCase):
         self.assertIn("本章", shell_text)
         self.assertIn("技术规范书", shell_text)
         self.assertIn("XXX", shell_text)
+
+    def test_both_quality_scripts_contain_ai_trace_detectors(self) -> None:
+        shell_text = (REPO_ROOT / "scripts" / "quality_check.sh").read_text(encoding="utf-8")
+        ps_text = (REPO_ROOT / "scripts" / "quality_check.ps1").read_text(encoding="utf-8")
+
+        for token in ("破折号滥用", "三段式套话", "emoji", "AI 套话词"):
+            self.assertIn(token, shell_text, msg=f"quality_check.sh missing {token}")
+            self.assertIn(token, ps_text, msg=f"quality_check.ps1 missing {token}")
+
+    def test_quality_scripts_agree_on_ai_traces_fixture(self) -> None:
+        if find_git_bash() is None:
+            self.skipTest("git bash not available")
+        fixture = REPORT_FIXTURES / "ai-traces-report.md"
+        sh = run_shell_quality_check(fixture)
+        ps = run_powershell_quality_check(fixture)
+
+        self.assertEqual(sh.returncode, 0, msg=sh.stdout + sh.stderr)
+        self.assertEqual(ps.returncode, 0, msg=ps.stdout + ps.stderr)
+
+        def summary(out: str) -> list[int]:
+            return [int(x) for x in re.findall(r"(?:高风险|中风险|低风险):\s*(\d+)", out)]
+
+        sh_sum = summary(sh.stdout)
+        ps_sum = summary(ps.stdout)
+        # 跨平台脚本对必须对同一文件给出一致的三级风险摘要
+        self.assertEqual(sh_sum, ps_sum, msg=f"sh={sh_sum} ps={ps_sum}\nSH:\n{sh.stdout}\nPS:\n{ps.stdout}")
+        # 锁定预期值，防止两端「都跳过 emoji」造成假绿
+        self.assertEqual(sh_sum, [1, 2, 3], msg=f"unexpected summary:\n{sh.stdout}")
+        self.assertIn("emoji 或装饰符", sh.stdout)
+        self.assertIn("emoji 或装饰符", ps.stdout)
+
+    def test_quality_scripts_apply_technical_bid_exemptions(self) -> None:
+        if find_git_bash() is None:
+            self.skipTest("git bash not available")
+        bid_fixture = REPORT_FIXTURES / "technical-bid-report.md"
+        sh = run_shell_quality_check(bid_fixture)
+        ps = run_powershell_quality_check(bid_fixture)
+
+        self.assertEqual(sh.returncode, 0, msg=sh.stdout + sh.stderr)
+        self.assertEqual(ps.returncode, 0, msg=ps.stdout + ps.stderr)
+        for out in (sh.stdout, ps.stdout):
+            # 技术标模式：技术规范书是正式术语、不计后台词；三段式按评分点列项、不算痕迹
+            self.assertNotIn("后台推进表述", out, msg=out)
+            self.assertNotIn("三段式套话", out, msg=out)
+
+        # 对照：同一句去掉技术标结构后，技术规范书应被当作后台词高风险
+        with tempfile.TemporaryDirectory(dir=REPO_ROOT / "tests") as temp_dir:
+            free = Path(temp_dir) / "free.md"
+            free.write_text("本方案严格响应技术规范书各项要求。", encoding="utf-8")
+            free_sh = run_shell_quality_check(free)
+            self.assertIn("后台推进表述", free_sh.stdout, msg=free_sh.stdout)
 
     def test_export_shell_script_contains_reviewable_draft_flow(self) -> None:
         shell_text = (REPO_ROOT / "scripts" / "export_draft.sh").read_text(encoding="utf-8")

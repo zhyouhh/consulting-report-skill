@@ -49,12 +49,20 @@ $checks = @(
         Title = "空洞形容词"
         Pattern = "(非常|极其|十分|相当)"
         Hint = "优先用数据、范围、影响程度替代空洞形容词。"
+    },
+    @{
+        Level = "中风险"
+        Title = "AI 套话词"
+        Pattern = "(赋能|抓手|组合拳|多措并举)"
+        Hint = "用具体动作和指标替代套话式动词，别用空词撑专业感。"
     }
 )
 
 # 技术标模式：正文含技术标专有结构时，「技术规范书 / 技规」是招标文件的正式术语，不按后台词告警
 $bidJoined = $content -join "`n"
+$isBid = $false
 if (($bidJoined -match "技术评分索引表") -or ($bidJoined -match "技术规范书点对点应答") -or ($bidJoined -match "技术标（技术投标文件）")) {
+    $isBid = $true
     foreach ($check in $checks) {
         if ($check.Title -eq "后台推进表述") {
             $check.Pattern = "(内部材料|内部资料|AI reference|AI材料)"
@@ -175,6 +183,32 @@ $keyFindings = Select-String -Path $FilePath -Pattern "(发现|显示|表明|数
 $actionWords = (Select-String -Path $FilePath -Pattern "(建议|应当|需要|可以|应该)" -AllMatches).Count
 if ($keyFindings -and $actionWords -lt 3) {
     Show-LowRiskWarning -Title "So What 提示" -Message "检测到关键发现表述，但行动建议偏少，请人工确认是否补充管理含义和动作。"
+    $summary["低风险"] += 1
+}
+
+# AI 痕迹·格式类检测（低风险，去 AI 味可执行项）
+$dashCount = ([regex]::Matches($bidJoined, "——")).Count
+if ($dashCount -ge 3) {
+    Show-LowRiskWarning -Title "破折号滥用" -Message "检测到 $dashCount 处破折号「——」，正文优先用完整句子和标点，破折号点到为止。"
+    $summary["低风险"] += 1
+}
+
+# 三段式：技术标按评分点列项是要求、不算痕迹，技术标模式下跳过
+if ((-not $isBid) -and ($bidJoined -match "首先") -and ($bidJoined -match "其次") -and ($bidJoined -match "最后")) {
+    Show-LowRiskWarning -Title "三段式套话" -Message "检测到「首先 / 其次 / 最后」三段式结构，三点不是真理，该成段就成段、该两点就两点。"
+    $summary["低风险"] += 1
+}
+
+# emoji 检测委托给共用 Python 助手，保证与 shell 版跨平台一致；无 Python 则两端同样跳过
+$emojiCount = 0
+$pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+if (-not $pythonCmd) { $pythonCmd = Get-Command python3 -ErrorAction SilentlyContinue }
+if ($pythonCmd) {
+    $emojiOut = (& $pythonCmd.Source (Join-Path $PSScriptRoot "count_emoji.py") $FilePath 2>$null | Select-Object -Last 1)
+    if ("$emojiOut" -match '^\d+$') { $emojiCount = [int]$emojiOut }
+}
+if ($emojiCount -ge 1) {
+    Show-LowRiskWarning -Title "emoji 或装饰符" -Message "检测到 $emojiCount 处 emoji/装饰符号，正式咨询 / 制度 / 技术标交付不使用 emoji。"
     $summary["低风险"] += 1
 }
 

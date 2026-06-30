@@ -8,6 +8,7 @@
 
 - 跑全部测试：`python -m unittest discover -s tests -v`
 - 轻量 eval 校验：`python scripts/run_evals.py`
+- 去 AI 味洁净度基准：`python scripts/benchmark_anti_ai.py`（配对语料）或 `... report.md`（单文件）
 - 初始化 plan：`bash scripts/init_plan.sh` 或 `powershell -ExecutionPolicy Bypass -File scripts/init_plan.ps1`
 - 质量检查：`bash scripts/quality_check.sh report.md` 或 `...quality_check.ps1 -FilePath report.md`
 - 导出可审草稿：`bash scripts/export_draft.sh report.md output`（需 pandoc）
@@ -16,10 +17,11 @@
 ## 唯一事实源与契约测试
 
 - `evals/capability-map.json` 是**模块名、task_types、behavior_tags 的唯一事实源**。README / SKILL / docs / evals 与它冲突时以它为准。
-- 契约测试三件套，改任何东西都要先跑过：
+- 契约测试，改任何东西都要先跑过：
   - `tests/test_docs_contract.py` — README/SKILL 版本号、docs 必含片段、quality-review 结构敏感项。
   - `tests/test_evals_contract.py` — capability-map 与 evals.json 的 schema、module/behavior/category 合法性、类别覆盖量。
-  - `tests/test_scripts.py` — 两平台脚本行为 + `EXPECTED_PLAN_FILES`。
+  - `tests/test_scripts.py` — 两平台脚本行为 + `EXPECTED_PLAN_FILES` + 去 AI 味检测器双脚本平价。
+  - `tests/test_benchmark.py` — 去 AI 味洁净度评分器：clean>problematic、cleaned 语料显著高于 baseline、技术标术语豁免。
 
 ## 改动接入清单（红线：少同步一处，契约测试就挂）
 

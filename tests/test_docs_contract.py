@@ -6,7 +6,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 class PublicDocsContractTests(unittest.TestCase):
-    def test_readme_is_upgraded_to_v13_information_architecture(self) -> None:
+    def test_readme_is_upgraded_to_v14_information_architecture(self) -> None:
         readme_text = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
         self.assertIn("v1.4", readme_text)
@@ -30,7 +30,7 @@ class PublicDocsContractTests(unittest.TestCase):
             for snippet in snippets:
                 self.assertIn(snippet, text, msg=f"{filename} missing {snippet}")
 
-    def test_skill_and_readme_versions_align_on_v13_boundary(self) -> None:
+    def test_skill_and_readme_versions_align_on_v14_boundary(self) -> None:
         skill_text = (REPO_ROOT / "SKILL.md").read_text(encoding="utf-8")
         readme_text = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
