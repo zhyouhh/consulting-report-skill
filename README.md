@@ -4,14 +4,14 @@
 
 这个 Skill 面向咨询顾问、商业分析师、战略规划人员，也适合短周期救火式的形式交付场景。它的定位不是“帮你凑字数”，而是把咨询项目里的对齐、写作、质检、导出和回写做成一个稳定可复用的工作流。
 
-## v1.2 完善版
+## v1.3 更新
 
-这一版同时补强四条线：
+这一版新增招投标技术标支持，并补齐项目过程模板：
 
-- 评测可跑：新增 capability map 和轻量 eval runner，避免模块名和路由口径继续漂移
-- 共享可用：补齐快速开始、推荐 prompt、模块路由和自检说明
-- 护栏更稳：README、SKILL、evals、测试统一引用 capability map 中的模块、类别和行为标签
-- 边界更清楚：继续坚持 `可审草稿` 能力，不把 Word 导出包装成最终中文排版
+- 新增报告类型：`technical-bid` 技术标（技术投标文件），按评分点逐条响应、技规点对点应答
+- 模板补齐：plan-template 增加 outline / references / data-log / analysis-notes / tasks / review-checklist 等过程文件
+- 质检适配：质量脚本对技术标自动豁免「技术规范书 / 技规」这类招标正式术语的后台词告警
+- 沿用 v1.2 四条护栏：评测可跑、共享可用、护栏稳、边界清晰，仍不把 Word 导出包装成最终中文排版
 
 ## 项目定位
 
@@ -107,6 +107,7 @@ bash scripts/export_draft.sh report.md output
 | 战略咨询 | `modules/strategy-consulting.md` |
 | 市场研究 | `modules/market-research.md` |
 | 尽职调查 | `modules/due-diligence.md` |
+| 招投标技术标 | `modules/technical-bid.md` |
 
 ### 工具模块
 
@@ -185,10 +186,10 @@ consulting-report-skill/
 
 ## 版本
 
-- 版本：1.2.0
+- 版本：1.3.0
 - 创建日期：2026-03-17
-- 最近更新：2026-03-26
-- 维护目标：流程稳定、内容可追溯、评测可跑、边界不夸大
+- 最近更新：2026-07-01
+- 维护目标：流程稳定、内容可追溯、评测可跑、边界不夸大；覆盖招投标技术标
 
 ## 许可证
 

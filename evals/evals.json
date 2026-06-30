@@ -105,6 +105,30 @@
       "disallowed_signals": ["技术规范书", "本报告不展开"]
     },
     {
+      "id": "technical-bid-001",
+      "category": "technical-bid",
+      "prompt": "帮我写一份政务数据治理项目的技术标，我会提供招标文件和评分标准，先抽评分点、定章节结构再写正文。",
+      "expected_modules": ["consulting-lifecycle", "technical-bid", "writing-core"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["本章将", "内部材料"]
+    },
+    {
+      "id": "technical-bid-002",
+      "category": "technical-bid",
+      "prompt": "继续已有技术标项目，把重难点分析及对策和实施管理两章补全，并检查评分点覆盖情况。",
+      "expected_modules": ["consulting-lifecycle", "technical-bid", "quality-review"],
+      "expected_behaviors": ["read_existing_plan", "run_quality_gate"],
+      "disallowed_signals": ["下文将", "TODO"]
+    },
+    {
+      "id": "technical-bid-003",
+      "category": "technical-bid",
+      "prompt": "替合作公司写一份技术标副标，结构对齐主标，人员业绩以我提供的材料为准，重点写服务承诺与保证措施。",
+      "expected_modules": ["consulting-lifecycle", "technical-bid", "recommendation-framework"],
+      "expected_behaviors": ["create_plan", "cite_data_sources"],
+      "disallowed_signals": ["XXX", "内部材料"]
+    },
+    {
       "id": "quick-delivery-001",
       "category": "quick-delivery",
       "prompt": "合同要求交一份 10 页左右的行业背景材料，时间很紧，用公开信息快速整理即可。",

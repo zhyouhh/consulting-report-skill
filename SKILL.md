@@ -1,6 +1,6 @@
 ---
 name: consulting-report-assistant
-description: Use when writing consulting reports, strategy analysis, market research, implementation plans, management documents, or due diligence deliverables that need plan tracking, consulting-style drafting, anti-AI cleanup, stable module routing, and optional reviewable draft export.
+description: Use when writing consulting reports, strategy analysis, market research, implementation plans, management documents, due diligence deliverables, or technical bid documents that need plan tracking, consulting-style drafting, anti-AI cleanup, stable module routing, and optional reviewable draft export.
 ---
 
 # 咨询报告写作助手
@@ -75,6 +75,7 @@ description: Use when writing consulting reports, strategy analysis, market rese
 - `modules/management-system.md`
 - `modules/implementation-plan.md`
 - `modules/due-diligence.md`
+- `modules/technical-bid.md`
 
 ### 工具与支撑模块
 
@@ -96,7 +97,7 @@ description: Use when writing consulting reports, strategy analysis, market rese
 ### 2. 去 AI 味
 
 - 不写“本章将”“下文将”“本报告不展开”等自我解释句
-- 不暴露后台推进词，如“技术规范书”“内部材料”“AI reference”等
+- 不暴露后台推进词，如“内部材料”“AI reference”等（技术标正文的“技术规范书/技规”是招标正式术语，不在此列，见 modules/technical-bid.md）
 - 不用机械过渡词和空洞强调句撑篇幅
 - 能写成段落就不要拆成过碎的小点
 
@@ -135,7 +136,7 @@ description: Use when writing consulting reports, strategy analysis, market rese
 
 ## 版本信息
 
-- 版本：1.2.0
+- 版本：1.3.0
 - 创建日期：2026-03-17
-- 最近更新：2026-03-26
-- 维护目标：可执行、可追踪、可审阅、评测可跑、边界清晰
+- 最近更新：2026-07-01
+- 维护目标：可执行、可追踪、可审阅、评测可跑、边界清晰；覆盖招投标技术标

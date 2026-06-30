@@ -52,6 +52,16 @@ $checks = @(
     }
 )
 
+# 技术标模式：正文含技术标专有结构时，「技术规范书 / 技规」是招标文件的正式术语，不按后台词告警
+$bidJoined = $content -join "`n"
+if (($bidJoined -match "技术评分索引表") -or ($bidJoined -match "技术规范书点对点应答") -or ($bidJoined -match "技术标（技术投标文件）")) {
+    foreach ($check in $checks) {
+        if ($check.Title -eq "后台推进表述") {
+            $check.Pattern = "(内部材料|内部资料|AI reference|AI材料)"
+        }
+    }
+}
+
 function Show-Finding {
     param(
         [string]$Level,

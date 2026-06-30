@@ -9,6 +9,22 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 EVAL_FIXTURES = REPO_ROOT / "tests" / "fixtures" / "evals"
 REPORT_FIXTURES = REPO_ROOT / "tests" / "fixtures"
 
+EXPECTED_PLAN_FILES = [
+    "project-overview.md",
+    "stage-gates.md",
+    "progress.md",
+    "tasks.md",
+    "notes.md",
+    "references.md",
+    "outline.md",
+    "research-plan.md",
+    "data-log.md",
+    "analysis-notes.md",
+    "review-checklist.md",
+    "presentation-plan.md",
+    "delivery-log.md",
+]
+
 
 def find_git_bash() -> str | None:
     candidates = [
@@ -210,8 +226,8 @@ class InitPlanScriptTests(unittest.TestCase):
             result = run_powershell_init_plan(workdir)
 
             self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
-            self.assertTrue((workdir / "plan" / "project-overview.md").exists())
-            self.assertTrue((workdir / "plan" / "notes.md").exists())
+            for name in EXPECTED_PLAN_FILES:
+                self.assertTrue((workdir / "plan" / name).exists(), msg=f"missing {name}")
 
     def test_powershell_init_plan_populates_existing_empty_plan_dir(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -220,7 +236,8 @@ class InitPlanScriptTests(unittest.TestCase):
             result = run_powershell_init_plan(workdir)
 
             self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
-            self.assertTrue((workdir / "plan" / "project-overview.md").exists())
+            for name in EXPECTED_PLAN_FILES:
+                self.assertTrue((workdir / "plan" / name).exists(), msg=f"missing {name}")
 
     def test_shell_init_plan_bootstraps_from_current_workdir(self) -> None:
         if find_git_bash() is None:
@@ -230,7 +247,8 @@ class InitPlanScriptTests(unittest.TestCase):
             result = run_shell_init_plan(workdir)
 
             self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
-            self.assertTrue((workdir / "plan" / "project-overview.md").exists())
+            for name in EXPECTED_PLAN_FILES:
+                self.assertTrue((workdir / "plan" / name).exists(), msg=f"missing {name}")
 
     def test_shell_init_plan_populates_existing_empty_plan_dir(self) -> None:
         if find_git_bash() is None:
@@ -241,7 +259,38 @@ class InitPlanScriptTests(unittest.TestCase):
             result = run_shell_init_plan(workdir)
 
             self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
-            self.assertTrue((workdir / "plan" / "project-overview.md").exists())
+            for name in EXPECTED_PLAN_FILES:
+                self.assertTrue((workdir / "plan" / name).exists(), msg=f"missing {name}")
+
+    def test_powershell_init_plan_backfills_without_overwriting_on_decline(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workdir = Path(temp_dir)
+            plan_dir = workdir / "plan"
+            plan_dir.mkdir()
+            sentinel = plan_dir / "project-overview.md"
+            sentinel.write_text("SENTINEL", encoding="utf-8")
+            result = run_powershell_init_plan(workdir, input_text="n\n")
+
+            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+            self.assertEqual(sentinel.read_text(encoding="utf-8").strip(), "SENTINEL")
+            for name in EXPECTED_PLAN_FILES:
+                self.assertTrue((plan_dir / name).exists(), msg=f"missing {name}")
+
+    def test_shell_init_plan_backfills_without_overwriting_on_decline(self) -> None:
+        if find_git_bash() is None:
+            self.skipTest("git bash not available")
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workdir = Path(temp_dir)
+            plan_dir = workdir / "plan"
+            plan_dir.mkdir()
+            sentinel = plan_dir / "project-overview.md"
+            sentinel.write_text("SENTINEL", encoding="utf-8")
+            result = run_shell_init_plan(workdir, input_text="n\n")
+
+            self.assertEqual(result.returncode, 0, msg=result.stdout + result.stderr)
+            self.assertEqual(sentinel.read_text(encoding="utf-8").strip(), "SENTINEL")
+            for name in EXPECTED_PLAN_FILES:
+                self.assertTrue((plan_dir / name).exists(), msg=f"missing {name}")
 
 
 class QualityCheckScriptTests(unittest.TestCase):

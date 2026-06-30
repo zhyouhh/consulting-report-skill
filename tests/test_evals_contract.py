@@ -99,6 +99,7 @@ class EvalsContractTests(unittest.TestCase):
             "specialized-research",
             "management-document",
             "implementation-plan",
+            "technical-bid",
             "quick-delivery",
             "reviewable-draft",
         }:

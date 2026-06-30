@@ -4,6 +4,7 @@
     "specialized-research",
     "management-document",
     "implementation-plan",
+    "technical-bid",
     "quick-delivery",
     "reviewable-draft",
     "anti-ai-regression"
@@ -115,6 +116,14 @@
       "trigger_phrases": ["尽职调查", "尽调", "财务尽调", "业务尽调"],
       "outputs": ["due-diligence-report", "risk-list"],
       "aliases": ["diligence", "dd"]
+    },
+    {
+      "module": "technical-bid",
+      "summary": "用于招投标技术标（技术投标文件）撰写，按评分点逐条响应、技规点对点应答。",
+      "task_types": ["technical-bid"],
+      "trigger_phrases": ["技术标", "投标文件", "招标", "评分点", "技术投标"],
+      "outputs": ["technical-bid", "scoring-index"],
+      "aliases": ["bid", "tender"]
     },
     {
       "module": "business-charts",

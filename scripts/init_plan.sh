@@ -22,8 +22,16 @@ managed_files=(
   "project-overview.md"
   "stage-gates.md"
   "progress.md"
-  "research-plan.md"
+  "tasks.md"
   "notes.md"
+  "references.md"
+  "outline.md"
+  "research-plan.md"
+  "data-log.md"
+  "analysis-notes.md"
+  "review-checklist.md"
+  "presentation-plan.md"
+  "delivery-log.md"
 )
 
 echo "🚀 开始初始化咨询报告项目..."
@@ -55,10 +63,11 @@ else
     echo "⚠️  plan 目录已存在且包含模板文件，是否覆盖这些模板文件？(y/n)"
     read -r response
     if [[ "$response" != "y" ]]; then
-      echo "❌ 取消初始化"
-      exit 0
+      echo "📁 保留已有文件，仅补齐缺失模板..."
+      overwrite_managed_files=0
+    else
+      overwrite_managed_files=1
     fi
-    overwrite_managed_files=1
   fi
 fi
 
@@ -77,7 +86,15 @@ echo "已确保以下文件存在："
 echo "  - plan/project-overview.md"
 echo "  - plan/stage-gates.md"
 echo "  - plan/progress.md"
-echo "  - plan/research-plan.md"
+echo "  - plan/tasks.md"
 echo "  - plan/notes.md"
+echo "  - plan/references.md"
+echo "  - plan/outline.md"
+echo "  - plan/research-plan.md"
+echo "  - plan/data-log.md"
+echo "  - plan/analysis-notes.md"
+echo "  - plan/review-checklist.md"
+echo "  - plan/presentation-plan.md"
+echo "  - plan/delivery-log.md"
 echo ""
 echo "💡 下一步：编辑 plan/project-overview.md 填写项目信息"

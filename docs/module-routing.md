@@ -13,6 +13,7 @@
 | 专项研究 | `specialized-research` + `data-analysis` + `quality-review` |
 | 管理制度 | `management-system` + `writing-core` + `quality-review` |
 | 实施方案 | `implementation-plan` + `recommendation-framework` + `quality-review` |
+| 招投标技术标 | `technical-bid` + `writing-core` + `quality-review` |
 | 可审草稿导出 | `quality-review` + `final-delivery` |
 | 只做质量审查 | `quality-review` + `common-gotchas` |
 
@@ -22,6 +23,7 @@
 - 当用户提“市场规模、行业趋势、竞争格局”时，优先看 `market-research`
 - 当用户提“执行摘要、管理层摘要、summary”时，优先看 `executive-summary`
 - 当用户直接说“review、审一下、质检一下”时，优先走 `quality-review`
+- 当用户提“技术标、投标文件、招标、评分点”时，优先看 `technical-bid`
 
 ## 常见误用
 
