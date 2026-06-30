@@ -9,7 +9,7 @@ class PublicDocsContractTests(unittest.TestCase):
     def test_readme_is_upgraded_to_v13_information_architecture(self) -> None:
         readme_text = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
-        self.assertIn("v1.3", readme_text)
+        self.assertIn("v1.4", readme_text)
         self.assertIn("快速开始", readme_text)
         self.assertIn("推荐提问方式", readme_text)
         self.assertIn("自检与评测", readme_text)
@@ -34,8 +34,8 @@ class PublicDocsContractTests(unittest.TestCase):
         skill_text = (REPO_ROOT / "SKILL.md").read_text(encoding="utf-8")
         readme_text = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
-        self.assertIn("版本：1.3.0", skill_text)
-        self.assertIn("版本：1.3.0", readme_text)
+        self.assertIn("版本：1.4.0", skill_text)
+        self.assertIn("版本：1.4.0", readme_text)
         self.assertIn("可审草稿", readme_text)
         self.assertIn("不承诺", readme_text)
 

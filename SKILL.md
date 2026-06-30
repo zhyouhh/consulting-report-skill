@@ -136,7 +136,7 @@ description: Use when writing consulting reports, strategy analysis, market rese
 
 ## 版本信息
 
-- 版本：1.3.0
+- 版本：1.4.0
 - 创建日期：2026-03-17
 - 最近更新：2026-07-01
-- 维护目标：可执行、可追踪、可审阅、评测可跑、边界清晰；覆盖招投标技术标
+- 维护目标：可执行、可追踪、可审阅、评测可跑、边界清晰；覆盖招投标技术标，去 AI 味语域感知

@@ -1,8 +1,6 @@
-# 开发和文档文件
+# 开发文件（docs/ 与 .claude/hooks 被 README/SKILL 引用，随包发布，不在此排除）
 CLAUDE.md
 REQUIREMENTS.md
-docs/
-.claude/
 
 # Python 缓存
 __pycache__/
