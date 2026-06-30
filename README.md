@@ -170,15 +170,15 @@ bash scripts/export_draft.sh report.md output
 
 模块命名、任务类别和行为标签的唯一事实源是 `evals/capability-map.json`。如果 README、SKILL、evals 和测试之间出现冲突，以 capability map 为准。
 
-## 自动化 hooks（可选，需自行接入）
+## 自动化 hooks（示例，不会自动运行）
 
-`.claude/hooks/` 下放的是**示例 hook 配置**，说明可以在项目里接入哪些自动化时机；是否生效、如何挂载取决于你的 runtime 与项目设置，默认不随 Skill 自动运行：
+需要先说清楚：**Agent Skill 标准不包含「随 skill 自动加载的 hook」机制，任何 runtime 都不会执行 skill 目录里的 hook 文件。** `.claude/hooks/` 下这三个 YAML 是**示例配置**，用的是说明性 schema，本身不会自动生效：
 
 - `init-plan-on-create.yaml`：创建 `plan/` 后自动初始化模板
 - `post-report-quality-check.yaml`：写入 `*.md` 后自动调用质量检查
 - `confirm-overwrite.yaml`：覆盖现有报告前需要确认
 
-把它们当成可复制的起点，按需接进你自己的项目自动化里。
+要真用，得自己翻成所在 runtime 的 hook 机制——例如 Claude Code 写进 `settings.json` 的 `PostToolUse`，或把整体重打包成能 bundle hooks 的 plugin。这里只提供「该接哪些自动化时机」的起点。
 
 ## 自检与评测
 
