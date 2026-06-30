@@ -29,10 +29,14 @@
 - **版本 bump**：`SKILL.md` + `README.md` 版本段 + `tests/test_docs_contract.py` 的版本断言（2 处「版本：x.y.z」+ README「vX.Y」标题断言）。
 - **加 plan-template 模板**：`scripts/init_plan.ps1` 和 `scripts/init_plan.sh` 的 managed list + 完成提示 + `tests/test_scripts.py` 的 `EXPECTED_PLAN_FILES`，三处必须一致。init_plan 语义：选 `n` = 保留已有 + 仅补缺失；`y` / `--force` 才覆盖已存在文件。
 - **跨平台脚本对**：`scripts/*.ps1` 与 `scripts/*.sh` 必须语义一致，两边一起改。
+- **改 quality_check 检测器 / 去 AI 味规则**：`scripts/quality_check.sh` 与 `.ps1` 同步改（语义一致），并对齐 `scripts/benchmark_anti_ai.py` 的检测项；emoji 一律走 `scripts/count_emoji.py`（唯一实现，别在 shell 里写 `grep -P`，不可移植）。改完跑 `tests/test_scripts.py`（双脚本平价 fixture `ai-traces-report.md`）+ `tests/test_benchmark.py`（锁 README 登的 28.7→99.0）。
 
 ## 已知陷阱
 
 - 后台词「技术规范书 / 技规」在**自由报告**里是后台泄漏、要禁；在**技术标**里是招标文件正式术语、必须保留。`quality_check` 有技术标模式（正文含「技术评分索引表 / 技术规范书点对点应答」或一级标题「技术标（技术投标文件）」时，对这条后台词豁免）；文档护栏（`writing-core` / `SKILL` / `quality-review` / `common-gotchas`）已写明例外。改后台词清单时别漏掉这条例外。
+- emoji 检测集中在 `scripts/count_emoji.py`（shell `grep -P` 仅 GNU 可用、macOS BSD 会静默跳过，破坏双脚本平价）。两个 `quality_check` 与 `benchmark` 都引用它，改 emoji 规则只动这一处。
+- 三段式（首先/其次/最后）在技术标里是评分点列项、不算痕迹：`quality_check`（`IS_BID`/`$isBid`）和 `benchmark`（`is_bid`）都对技术标跳过三段式，与技术规范书豁免同源。改三段式逻辑时两处都要顾。
+- hooks 是**示例**：`.claude/hooks/*.yaml` 用自创 schema，任何 runtime 都不自动加载（Agent Skill 标准不含自动 hook 机制）。`README` / `docs/self-check.md` 已据实写明，别再改回「自动触发」表述。
 
 ## 与 CRA 的关系
 

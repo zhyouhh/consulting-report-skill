@@ -174,9 +174,9 @@ bash scripts/export_draft.sh report.md output
 
 需要先说清楚：**Agent Skill 标准不包含「随 skill 自动加载的 hook」机制，任何 runtime 都不会执行 skill 目录里的 hook 文件。** `.claude/hooks/` 下这三个 YAML 是**示例配置**，用的是说明性 schema，本身不会自动生效：
 
-- `init-plan-on-create.yaml`：创建 `plan/` 后自动初始化模板
-- `post-report-quality-check.yaml`：写入 `*.md` 后自动调用质量检查
-- `confirm-overwrite.yaml`：覆盖现有报告前需要确认
+- `init-plan-on-create.yaml`：创建 `plan/` 后初始化模板
+- `post-report-quality-check.yaml`：写入 `*.md` 后跑质量检查
+- `confirm-overwrite.yaml`：覆盖现有报告前确认
 
 要真用，得自己翻成所在 runtime 的 hook 机制——例如 Claude Code 写进 `settings.json` 的 `PostToolUse`，或把整体重打包成能 bundle hooks 的 plugin。这里只提供「该接哪些自动化时机」的起点。
 
